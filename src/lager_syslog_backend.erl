@@ -56,7 +56,7 @@ handle_call(_Request, State) ->
 
 %% @private
 handle_event({log, Level, {_Date, _Time}, [_LevelStr, Location, Message]}, State) ->
-    syslog:write(convert_level(Level), [Location, Message]),
+    syslog:write(convert_level(Level), lists:flatten([Location, Message])),
     {ok, State};
 handle_event(_Event, State) ->
     {ok, State}.
